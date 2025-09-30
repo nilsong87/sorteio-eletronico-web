@@ -93,9 +93,17 @@ document.addEventListener('DOMContentLoaded', function () {
             ? '<span class="badge bg-info">Aberto</span>' 
             : '<span class="badge bg-success">Finalizado</span>';
 
-        const winnersHTML = raffle.winners ? `<strong>Vencedores:</strong> ${raffle.winners.join(', ')}` : '';
+        let detailsHTML = '';
+        if (raffle.status === 'finished' && raffle.winners && raffle.winners.length > 0) {
+            const finishedDate = raffle.finishedAt ? new Date(raffle.finishedAt.seconds * 1000).toLocaleString() : 'Data indisponível';
+            detailsHTML = `
+                <p class="card-text mb-1"><strong>Vencedores:</strong> ${raffle.winners.join(', ')}</p>
+                <p class="card-text"><small class="text-muted">Finalizado em: ${finishedDate}</small></p>
+            `;
+        }
+
         const buttonHTML = raffle.status === 'open' 
-            ? `<button class="btn btn-sm btn-outline-light" onclick="window.navigateToRaffle('${raffle.id}')">Gerenciar</button>`
+            ? `<button class="btn btn-sm btn-outline-light mt-2" onclick="window.navigateToRaffle('${raffle.id}')">Gerenciar</button>`
             : '';
 
         col.innerHTML = `
@@ -106,8 +114,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         ${statusBadge}
                     </div>
                     <h6 class="card-subtitle mb-2 text-muted">Modalidade: ${raffle.modality}</h6>
-                    <p class="card-text">Criado em: ${new Date(raffle.createdAt.seconds * 1000).toLocaleString()}</p>
-                    <p class="card-text">${winnersHTML}</p>
+                    <p class="card-text"><small>Criado em: ${new Date(raffle.createdAt.seconds * 1000).toLocaleString()}</small></p>
+                    ${detailsHTML}
                     ${buttonHTML}
                 </div>
             </div>
