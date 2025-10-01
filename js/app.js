@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function renderRaffleCard(listElement, raffle) {
+        console.log("Renderizando Sorteio:", raffle);
         const col = document.createElement('div');
         col.className = 'col-md-6';
 
@@ -93,8 +94,17 @@ document.addEventListener('DOMContentLoaded', function () {
             ? '<span class="badge bg-info">Aberto</span>' 
             : '<span class="badge bg-success">Finalizado</span>';
 
+        // Modalidade e participantes/cotas
+        let infoHTML = '';
+        if (raffle.modality === 'Cotas') {
+            infoHTML = `<p class="card-text mb-1"><strong>Total de cotas:</strong> ${raffle.participants}</p>`;
+        } else if (Array.isArray(raffle.participants)) {
+            infoHTML = `<p class="card-text mb-1"><strong>Participantes:</strong> ${raffle.participants.length}</p>`;
+        }
+
+        // Vencedores e data de finalização
         let detailsHTML = '';
-        if (raffle.status === 'finished' && raffle.winners && raffle.winners.length > 0) {
+        if (raffle.status !== 'open' && raffle.winners && raffle.winners.length > 0) {
             const finishedDate = raffle.finishedAt ? new Date(raffle.finishedAt.seconds * 1000).toLocaleString() : 'Data indisponível';
             detailsHTML = `
                 <p class="card-text mb-1"><strong>Vencedores:</strong> ${raffle.winners.join(', ')}</p>
@@ -115,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                     <h6 class="card-subtitle mb-2 text-muted">Modalidade: ${raffle.modality}</h6>
                     <p class="card-text"><small>Criado em: ${new Date(raffle.createdAt.seconds * 1000).toLocaleString()}</small></p>
+                    ${infoHTML}
                     ${detailsHTML}
                     ${buttonHTML}
                 </div>
