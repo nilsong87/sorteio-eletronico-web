@@ -101,7 +101,7 @@ h2, h4 {
     font-size: 1.15rem;
     font-family: 'Montserrat', 'Segoe UI', sans-serif;
     background: linear-gradient(90deg, #0dcaf0 0%, #232526 100%);
-    color: #232526;
+    color: #ffffff;
     font-weight: 600;
     margin-bottom: 12px;
     border-radius: 8px;
@@ -110,18 +110,18 @@ h2, h4 {
 
 #winners-list li:nth-child(1) {
     background: linear-gradient(90deg, #ffd700 60%, #fffbe6 100%);
-    color: #232526;
+    color: #ffffff;
     font-weight: bold;
 }
 
 #winners-list li:nth-child(2) {
     background: linear-gradient(90deg, #c0c0c0 60%, #f8f9fa 100%);
-    color: #232526;
+    color: #ffffff;
 }
 
 #winners-list li:nth-child(3) {
     background: linear-gradient(90deg, #cd7f32 60%, #f8f9fa 100%);
-    color: #232526;
+    color: #ffffff;
 }
 
 /* Scrollbar customizada para listas longas */
@@ -141,5 +141,11 @@ h2, h4 {
 }
 .card {
     animation: cardFadeIn 0.7s cubic-bezier(.4,2,.3,1);
+    color: aliceblue;
+}
+
+.text-muted {
+    --bs-text-opacity: 1;
+    color: #fff !important;
 }
 
